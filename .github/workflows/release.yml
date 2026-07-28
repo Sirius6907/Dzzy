@@ -129,12 +129,12 @@ jobs:
       - name: Generate release config
         run: cd desktop && node scripts/build-release-config.mjs
         env:
-          BUZZ_UPDATER_PUBLIC_KEY: ${{ secrets.BUZZ_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
-          BUZZ_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
+          DZZY_UPDATER_PUBLIC_KEY: ${{ secrets.DZZY_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
+          DZZY_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
 
       - name: Build sidecars
         run: |
-          cargo build --release -p buzz-acp -p buzz-agent -p buzz-dev-mcp -p git-credential-nostr -p buzz-cli
+          cargo build --release -p dzzy-acp -p dzzy-agent -p dzzy-dev-mcp -p git-credential-nostr -p dzzy-cli
           ./scripts/bundle-sidecars.sh
 
       # Mesh rev derived from Cargo.lock (no lockstep edit on dep bump); cache key tracks it.
@@ -180,8 +180,8 @@ jobs:
       - name: Build unsigned Tauri app
         run: cd desktop && pnpm tauri build --verbose --no-sign --features mesh-llm --config src-tauri/tauri.release.conf.json
         env:
-          BUZZ_UPDATER_PUBLIC_KEY: ${{ secrets.BUZZ_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
-          BUZZ_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
+          DZZY_UPDATER_PUBLIC_KEY: ${{ secrets.DZZY_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
+          DZZY_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
           CMAKE_POLICY_VERSION_MINIMUM: "3.5"
@@ -220,7 +220,7 @@ jobs:
           codesign-s3-bucket: ${{ secrets.CODESIGN_S3_BUCKET }}
           unsigned-artifact-path: ${{ steps.unsigned.outputs.dmg }}
           entitlements-plist-path: ${{ runner.temp }}/entitlements.plist
-          artifact-name: buzz-${{ github.sha }}-${{ github.run_id }}-arm64
+          artifact-name: dzzy-${{ github.sha }}-${{ github.run_id }}-arm64
 
       - name: Replace DMG and rebuild updater archive
         env:
@@ -348,19 +348,19 @@ jobs:
       - name: Generate release config
         run: cd desktop && node scripts/build-release-config.mjs
         env:
-          BUZZ_UPDATER_PUBLIC_KEY: ${{ secrets.BUZZ_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
-          BUZZ_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
+          DZZY_UPDATER_PUBLIC_KEY: ${{ secrets.DZZY_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
+          DZZY_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
 
       - name: Build sidecars
         run: |
-          cargo build --release --target "$TARGET" -p buzz-acp -p buzz-agent -p buzz-dev-mcp -p git-credential-nostr -p buzz-cli
+          cargo build --release --target "$TARGET" -p dzzy-acp -p dzzy-agent -p dzzy-dev-mcp -p git-credential-nostr -p dzzy-cli
           ./scripts/bundle-sidecars.sh "$TARGET"
 
       - name: Build unsigned Tauri app
         run: cd desktop && pnpm tauri build --verbose --no-sign --target "$TARGET" --config src-tauri/tauri.release.conf.json
         env:
-          BUZZ_UPDATER_PUBLIC_KEY: ${{ secrets.BUZZ_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
-          BUZZ_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
+          DZZY_UPDATER_PUBLIC_KEY: ${{ secrets.DZZY_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
+          DZZY_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
           CMAKE_POLICY_VERSION_MINIMUM: "3.5"
@@ -396,7 +396,7 @@ jobs:
           codesign-s3-bucket: ${{ secrets.CODESIGN_S3_BUCKET }}
           unsigned-artifact-path: ${{ steps.unsigned.outputs.dmg }}
           entitlements-plist-path: ${{ runner.temp }}/entitlements.plist
-          artifact-name: buzz-${{ github.sha }}-${{ github.run_id }}-x64
+          artifact-name: dzzy-${{ github.sha }}-${{ github.run_id }}-x64
 
       - name: Replace DMG and rebuild updater archive
         env:
@@ -611,20 +611,20 @@ jobs:
 
       - name: Build sidecars
         run: |
-          cargo build --release -p buzz-acp -p buzz-agent -p buzz-dev-mcp -p git-credential-nostr -p buzz-cli
+          cargo build --release -p dzzy-acp -p dzzy-agent -p dzzy-dev-mcp -p git-credential-nostr -p dzzy-cli
           ./scripts/bundle-sidecars.sh
 
       - name: Generate release config
         run: cd desktop && node scripts/build-release-config.mjs
         env:
-          BUZZ_UPDATER_PUBLIC_KEY: ${{ secrets.BUZZ_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
-          BUZZ_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
+          DZZY_UPDATER_PUBLIC_KEY: ${{ secrets.DZZY_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
+          DZZY_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
 
       - name: Build Linux Tauri app
         run: cd desktop && pnpm tauri build --verbose --ci --bundles deb,appimage --config src-tauri/tauri.release.conf.json
         env:
-          BUZZ_UPDATER_PUBLIC_KEY: ${{ secrets.BUZZ_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
-          BUZZ_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
+          DZZY_UPDATER_PUBLIC_KEY: ${{ secrets.DZZY_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
+          DZZY_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
           CMAKE_POLICY_VERSION_MINIMUM: "3.5"
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
@@ -767,21 +767,21 @@ jobs:
         shell: bash
         run: cd desktop && node scripts/build-release-config.mjs
         env:
-          BUZZ_UPDATER_PUBLIC_KEY: ${{ secrets.BUZZ_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
-          BUZZ_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
+          DZZY_UPDATER_PUBLIC_KEY: ${{ secrets.DZZY_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
+          DZZY_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
 
       - name: Build sidecars
         shell: bash
         run: |
-          cargo build --release --target "$TARGET" -p buzz-acp -p buzz-agent -p buzz-dev-mcp -p git-credential-nostr -p buzz-cli
+          cargo build --release --target "$TARGET" -p dzzy-acp -p dzzy-agent -p dzzy-dev-mcp -p git-credential-nostr -p dzzy-cli
           ./scripts/bundle-sidecars.sh "$TARGET"
 
       - name: Build Windows NSIS installer (unsigned)
         shell: bash
         run: cd desktop && pnpm tauri build --verbose --target "$TARGET" --bundles nsis --config src-tauri/tauri.release.conf.json
         env:
-          BUZZ_UPDATER_PUBLIC_KEY: ${{ secrets.BUZZ_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
-          BUZZ_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
+          DZZY_UPDATER_PUBLIC_KEY: ${{ secrets.DZZY_UPDATER_PUBLIC_KEY || secrets.SPROUT_UPDATER_PUBLIC_KEY }}
+          DZZY_UPDATER_ENDPOINT: https://github.com/Sirius6907/dzzy/releases/download/dzzy-desktop-latest/latest.json
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
           CMAKE_POLICY_VERSION_MINIMUM: "3.5"

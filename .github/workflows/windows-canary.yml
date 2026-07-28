@@ -122,7 +122,7 @@ jobs:
       - name: Build sidecars
         shell: bash
         run: |
-          cargo build --release --target "$TARGET" -p buzz-acp -p buzz-agent -p buzz-dev-mcp -p git-credential-nostr -p buzz-cli
+          cargo build --release --target "$TARGET" -p dzzy-acp -p dzzy-agent -p dzzy-dev-mcp -p git-credential-nostr -p dzzy-cli
           ./scripts/bundle-sidecars.sh "$TARGET"
 
       - name: Build Windows NSIS installer (unsigned)
@@ -147,7 +147,7 @@ jobs:
       - name: Upload Windows canary installer
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: buzz-windows-canary-${{ github.sha }}
+          name: dzzy-windows-canary-${{ github.sha }}
           path: ${{ steps.artifact.outputs.exe }}
           if-no-files-found: error
           retention-days: 7

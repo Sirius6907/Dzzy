@@ -93,7 +93,7 @@ jobs:
 
       - name: Build sidecars
         run: |
-          cargo build --release -p buzz-acp -p buzz-agent -p buzz-dev-mcp -p git-credential-nostr -p buzz-cli
+          cargo build --release -p dzzy-acp -p dzzy-agent -p dzzy-dev-mcp -p git-credential-nostr -p dzzy-cli
           ./scripts/bundle-sidecars.sh
 
       # Mesh rev derived from Cargo.lock (no lockstep edit on dep bump); cache key tracks it.
@@ -176,7 +176,7 @@ jobs:
           codesign-s3-bucket: ${{ secrets.CODESIGN_S3_BUCKET }}
           unsigned-artifact-path: ${{ steps.unsigned.outputs.dmg }}
           entitlements-plist-path: ${{ runner.temp }}/entitlements.plist
-          artifact-name: buzz-canary-${{ github.sha }}-${{ github.run_id }}-arm64
+          artifact-name: dzzy-canary-${{ github.sha }}-${{ github.run_id }}-arm64
 
       - name: Verify signed app
         env:
@@ -205,7 +205,7 @@ jobs:
       - name: Upload signed canary
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: buzz-macos-canary-${{ github.sha }}
+          name: dzzy-macos-canary-${{ github.sha }}
           path: ${{ steps.artifact.outputs.path }}
           if-no-files-found: error
           retention-days: 7
