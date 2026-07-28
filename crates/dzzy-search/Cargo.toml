@@ -1,0 +1,17 @@
+[package]
+name = "dzzy-search"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Postgres full-text search for Dzzy, scoped by community"
+
+[dependencies]
+dzzy-core   = { workspace = true }
+sqlx        = { workspace = true }
+uuid        = { workspace = true }
+thiserror   = { workspace = true }
+
+[dev-dependencies]
+tokio       = { workspace = true }

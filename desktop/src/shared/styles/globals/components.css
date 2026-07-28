@@ -1,0 +1,609 @@
+@layer components {
+  .dzzy-side-panel-enter {
+    animation: dzzy-side-panel-enter 260ms cubic-bezier(0.32, 0.72, 0, 1) both;
+    transform-origin: right center;
+    will-change: transform, opacity;
+  }
+
+  .dzzy-huddle-shell {
+    --dzzy-huddle-drawer-height: 5rem;
+    --dzzy-huddle-drawer-radius: 24px;
+    --dzzy-huddle-drawer-ease: cubic-bezier(0.32, 0.72, 0, 1);
+    --dzzy-huddle-drawer-surface: var(--huddle-drawer-surface, 0 0% 0%);
+    background: hsl(var(--dzzy-huddle-drawer-surface));
+  }
+
+  .dzzy-huddle-app-surface {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    bottom: 0;
+    box-shadow: none;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition:
+      bottom 260ms var(--dzzy-huddle-drawer-ease),
+      border-bottom-left-radius 260ms var(--dzzy-huddle-drawer-ease),
+      border-bottom-right-radius 260ms var(--dzzy-huddle-drawer-ease),
+      box-shadow 260ms var(--dzzy-huddle-drawer-ease);
+    will-change:
+      bottom, border-bottom-left-radius, border-bottom-right-radius, box-shadow;
+  }
+
+  .dzzy-huddle-app-surface::after {
+    background: hsl(var(--dzzy-huddle-drawer-surface));
+    bottom: -1px;
+    content: "";
+    height: 2px;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    transition: opacity 260ms var(--dzzy-huddle-drawer-ease);
+    z-index: 60;
+  }
+
+  .dzzy-huddle-app-surface-open {
+    border-bottom-left-radius: var(--dzzy-huddle-drawer-radius);
+    border-bottom-right-radius: var(--dzzy-huddle-drawer-radius);
+    bottom: var(--dzzy-huddle-drawer-height);
+    box-shadow:
+      0 10px 24px -12px rgb(0 0 0 / 62%),
+      0 2px 7px -4px rgb(0 0 0 / 42%);
+  }
+
+  .dzzy-huddle-app-surface-open::after {
+    opacity: 1;
+  }
+
+  .dzzy-huddle-drawer {
+    --dzzy-huddle-drawer-surface: var(--huddle-drawer-surface, 0 0% 0%);
+    --background: var(--dzzy-huddle-drawer-surface);
+    --foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: var(--huddle-control-surface, 0 0% 14.9%);
+    --secondary-foreground: var(--huddle-control-foreground, 0 0% 98%);
+    --muted: var(--huddle-control-chevron-surface, 0 0% 14.9%);
+    --muted-foreground: 0 0% 63.9%;
+    --accent: var(
+      --huddle-control-hover-surface,
+      var(--huddle-control-surface, 0 0% 14.9%)
+    );
+    --accent-foreground: 0 0% 98%;
+    --popover: var(--dzzy-huddle-drawer-surface);
+    --popover-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+
+    color-scheme: dark;
+    background: hsl(var(--dzzy-huddle-drawer-surface));
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .dzzy-huddle-drawer::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dzzy-huddle-popover {
+    --dzzy-huddle-popover-surface: var(
+      --huddle-popover-surface,
+      var(--huddle-control-chevron-surface, 0 0% 16%)
+    );
+    --background: var(--dzzy-huddle-popover-surface);
+    --foreground: var(--huddle-control-foreground, 0 0% 98%);
+    --popover: var(--dzzy-huddle-popover-surface);
+    --popover-foreground: var(--foreground);
+    --border: var(
+      --huddle-popover-border,
+      var(--huddle-control-hover-surface, 0 0% 24%)
+    );
+
+    background: hsl(var(--dzzy-huddle-popover-surface));
+    border-color: hsl(var(--border) / 0.6);
+    box-shadow:
+      0 6px 18px lch(0% 0 0 / 0.02),
+      0 3px 9px lch(0% 0 0 / 0.04),
+      0 1px 1px lch(0% 0 0 / 0.04);
+    color: hsl(var(--foreground));
+  }
+
+  .dzzy-huddle-headphones-hint {
+    --background: var(
+      --huddle-tooltip-surface,
+      var(--huddle-control-surface, var(--secondary))
+    );
+    --foreground: var(
+      --huddle-tooltip-foreground,
+      var(--huddle-control-foreground, var(--secondary-foreground))
+    );
+    --popover: var(--background);
+    --popover-foreground: var(--foreground);
+
+    background: hsl(var(--background));
+    box-shadow:
+      0 6px 18px lch(0% 0 0 / 0.02),
+      0 3px 9px lch(0% 0 0 / 0.04),
+      0 1px 1px lch(0% 0 0 / 0.04);
+    color: hsl(var(--foreground));
+  }
+
+  .dzzy-huddle-mic-meter-bar {
+    border-radius: 9999px;
+    height: var(--dzzy-huddle-meter-height, 0.25rem);
+    transition: none;
+    width: 0.25rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dzzy-side-panel-enter {
+      animation: none;
+      will-change: auto;
+    }
+
+    .dzzy-huddle-app-surface {
+      transition: none;
+    }
+
+    .dzzy-huddle-mic-meter-bar {
+      transition: none;
+    }
+  }
+
+  .dzzy-startup-shell {
+    min-height: 100dvh;
+    width: 100%;
+  }
+
+  .dzzy-onboarding-step-frame {
+    min-height: min(1000px, max(0px, calc(100dvh - 106px - 7rem)));
+    max-height: 1000px;
+  }
+
+  .dzzy-onboarding-step-frame > .dzzy-onboarding-slide,
+  .dzzy-onboarding-step-frame
+    > .dzzy-onboarding-slide
+    > .dzzy-onboarding-transition-line {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .dzzy-onboarding-neutral-theme.dzzy-startup-shell {
+    /* Dot grid over the chartreuse→light-blue gradient (dots layer first so
+       they sit on top). The welcome page overrides this with dots over a flat
+       chartreuse fill below. */
+    background-image:
+      radial-gradient(circle, rgb(0 0 0 / 0.08) 1px, transparent 1px),
+      linear-gradient(
+        to bottom,
+        var(--dzzy-welcome-chartreuse),
+        var(--dzzy-onboarding-shell-bottom)
+      );
+    background-size:
+      24px 24px,
+      auto;
+  }
+
+  .dzzy-onboarding-neutral-theme.dzzy-startup-shell.dzzy-onboarding-welcome {
+    background-color: var(--dzzy-welcome-chartreuse);
+    /* Landing is a flat chartreuse field, so the docked-footer scrim must match
+       it (not the gradient's light-blue bottom) to stay invisible. */
+    --dzzy-onboarding-shell-bottom: var(--dzzy-welcome-chartreuse);
+    /* Subtle dot grid: 2px dots spaced on a 24px lattice. */
+    background-image: radial-gradient(
+      circle,
+      rgb(0 0 0 / 0.08) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+  }
+
+  .dzzy-onboarding-neutral-theme {
+    /* Landing "chartreuse" — the welcome background; reused for the CTA label. */
+    --dzzy-welcome-chartreuse: #d7d72e;
+    /* Bottom stop of the onboarding shell gradient; also the docked-footer
+       scrim color so content scrolling under the CTA fades into the page. */
+    --dzzy-onboarding-shell-bottom: #d7e7f6;
+    /* Label color for the primary onboarding CTA (light blue on the dark pill). */
+    --dzzy-onboarding-cta-label: #d7e6f0;
+    /* Olive ink for the backup step's private key and its "never share" caption,
+       reading against the fuzzy-white key frame. */
+    --dzzy-onboarding-backup-ink: #717106;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 9%;
+    --dzzy-onboarding-emoji-picker-background: 245, 245, 245;
+    --dzzy-onboarding-emoji-picker-color: 23, 23, 23;
+    --dzzy-onboarding-emoji-picker-input: 255, 255, 255;
+    --dzzy-onboarding-avatar-dialog-bg: 255 255 255;
+    --dzzy-onboarding-avatar-accent-bg: 240 240 205;
+    --dzzy-onboarding-avatar-accent-fg: 113 113 6;
+    --dzzy-onboarding-avatar-action-bg: 23 23 23;
+    --dzzy-onboarding-avatar-action-fg: 240 240 205;
+    --dzzy-onboarding-avatar-control-fg: 113 113 6;
+    --dzzy-onboarding-avatar-dialog-shadow: 0 0 0;
+  }
+
+  .dzzy-onboarding-key-text {
+    @apply w-full break-all [overflow-wrap:anywhere] font-mono text-nsec-key;
+
+    color: var(--dzzy-onboarding-backup-ink);
+  }
+
+  .dark .dzzy-onboarding-neutral-theme:not(.dzzy-startup-shell) {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --dzzy-onboarding-emoji-picker-background: 38, 38, 38;
+    --dzzy-onboarding-emoji-picker-color: 250, 250, 250;
+    --dzzy-onboarding-emoji-picker-input: 10, 10, 10;
+    --dzzy-onboarding-avatar-dialog-bg: 24 24 20;
+    --dzzy-onboarding-avatar-accent-bg: 211 211 163;
+    --dzzy-onboarding-avatar-accent-fg: 24 24 20;
+    --dzzy-onboarding-avatar-action-bg: 113 113 6;
+    --dzzy-onboarding-avatar-action-fg: 240 240 205;
+    --dzzy-onboarding-avatar-control-fg: 224 224 176;
+    --dzzy-onboarding-avatar-dialog-shadow: 0 0 0;
+  }
+
+  .dzzy-onboarding-neutral-theme[data-system-color-scheme="light"],
+  .dark
+    .dzzy-onboarding-neutral-theme[data-system-color-scheme="light"]:not(
+      .dzzy-startup-shell
+    ) {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 9%;
+    --dzzy-onboarding-emoji-picker-background: 245, 245, 245;
+    --dzzy-onboarding-emoji-picker-color: 23, 23, 23;
+    --dzzy-onboarding-emoji-picker-input: 255, 255, 255;
+    --dzzy-onboarding-avatar-dialog-bg: 255 255 255;
+    --dzzy-onboarding-avatar-accent-bg: 240 240 205;
+    --dzzy-onboarding-avatar-accent-fg: 113 113 6;
+    --dzzy-onboarding-avatar-action-bg: 23 23 23;
+    --dzzy-onboarding-avatar-action-fg: 240 240 205;
+    --dzzy-onboarding-avatar-control-fg: 113 113 6;
+    --dzzy-onboarding-avatar-dialog-shadow: 0 0 0;
+  }
+
+  .dzzy-onboarding-neutral-theme[data-system-color-scheme="dark"]:not(
+    .dzzy-startup-shell
+  ) {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --dzzy-onboarding-emoji-picker-background: 38, 38, 38;
+    --dzzy-onboarding-emoji-picker-color: 250, 250, 250;
+    --dzzy-onboarding-emoji-picker-input: 10, 10, 10;
+    --dzzy-onboarding-avatar-dialog-bg: 24 24 20;
+    --dzzy-onboarding-avatar-accent-bg: 211 211 163;
+    --dzzy-onboarding-avatar-accent-fg: 24 24 20;
+    --dzzy-onboarding-avatar-action-bg: 113 113 6;
+    --dzzy-onboarding-avatar-action-fg: 240 240 205;
+    --dzzy-onboarding-avatar-control-fg: 224 224 176;
+    --dzzy-onboarding-avatar-dialog-shadow: 0 0 0;
+  }
+
+  /* The key-import card is viewport-centered on ordinary windows, independent
+     of the top heading and bottom-docked actions. Short windows return it to
+     document flow so the shell can grow and scroll instead of overlapping. */
+  .dzzy-onboarding-key-import-position {
+    position: absolute;
+    left: 50%;
+    top: calc(50dvh - 6.625rem);
+    transform: translate(-50%, -50%);
+  }
+
+  @media (max-height: 44rem) {
+    .dzzy-onboarding-key-import-position {
+      position: static;
+      margin-top: 3rem;
+      transform: none;
+    }
+  }
+
+  .dzzy-onboarding-transition-content {
+    animation-delay: var(--dzzy-onboarding-transition-delay, 0ms);
+  }
+
+  .dzzy-onboarding-transition-line[data-onboarding-effect="fade"]
+    > .dzzy-onboarding-transition-content {
+    animation: dzzy-onboarding-fade-in 300ms ease-out backwards;
+    animation-delay: var(--dzzy-onboarding-transition-delay, 0ms);
+  }
+
+  .dzzy-onboarding-transition-line[data-onboarding-effect="line-slide"]
+    > .dzzy-onboarding-transition-content {
+    animation-duration: 650ms;
+    animation-fill-mode: backwards;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .dzzy-onboarding-transition-line[data-onboarding-effect="line-slide"][data-onboarding-direction="forward"]
+    > .dzzy-onboarding-transition-content {
+    animation-name: dzzy-onboarding-line-slide-forward;
+  }
+
+  .dzzy-onboarding-transition-line[data-onboarding-effect="line-slide"][data-onboarding-direction="backward"]
+    > .dzzy-onboarding-transition-content {
+    animation-name: dzzy-onboarding-line-slide-backward;
+  }
+
+  .dzzy-onboarding-transition-line[data-onboarding-effect="mask-reveal-up"] {
+    overflow: visible;
+  }
+
+  .dzzy-onboarding-transition-line[data-onboarding-effect="mask-reveal-up"]
+    > .dzzy-onboarding-transition-content {
+    /* `backwards` (not `both`): the reveal ends on an identity transform, so
+       holding it forward is visually a no-op but leaves a lingering transform
+       that establishes a containing block and traps `position: fixed`
+       descendants (the bottom-docked onboarding footer). Reverting to no
+       transform at rest looks identical and frees fixed positioning. */
+    animation: dzzy-onboarding-mask-reveal-up 760ms
+      cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: var(--dzzy-onboarding-transition-delay, 0ms);
+    transform-origin: 50% 70%;
+  }
+
+  .dzzy-onboarding-name-placeholder-caret {
+    animation: dzzy-onboarding-caret-blink 1.1s steps(1, end) infinite;
+  }
+
+  .dzzy-onboarding-runtime-pill {
+    animation: dzzy-onboarding-runtime-pill-in 180ms
+      cubic-bezier(0.22, 1, 0.36, 1) both;
+    font-size: 0.625rem;
+    letter-spacing: 0;
+    line-height: 1;
+    text-transform: uppercase;
+    transform-origin: top center;
+    will-change: opacity, transform;
+  }
+
+  .dzzy-onboarding-runtime-setup {
+    isolation: isolate;
+    position: relative;
+  }
+
+  .dzzy-onboarding-runtime-setup[data-setup-flash="true"] {
+    animation: dzzy-onboarding-runtime-setup-bump 560ms
+      cubic-bezier(0.22, 1, 0.36, 1) both;
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  .dzzy-onboarding-runtime-setup[data-setup-flash="true"]::after {
+    animation: dzzy-onboarding-runtime-setup-ring 560ms
+      cubic-bezier(0.22, 1, 0.36, 1) both;
+    border: 1px solid var(--dzzy-welcome-chartreuse);
+    border-radius: inherit;
+    content: "";
+    inset: -0.25rem;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transform: scale(0.9);
+    will-change: opacity, transform;
+  }
+
+  @keyframes dzzy-onboarding-runtime-pill-in {
+    from {
+      opacity: 0;
+      transform: translateY(-0.25rem) scale(0.94);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes dzzy-onboarding-runtime-setup-bump {
+    0%,
+    100% {
+      transform: translateZ(0) scale(1);
+    }
+
+    35% {
+      transform: translateZ(0) scale(1.06);
+    }
+
+    70% {
+      transform: translateZ(0) scale(0.99);
+    }
+  }
+
+  @keyframes dzzy-onboarding-runtime-setup-ring {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    28% {
+      opacity: 0.55;
+      transform: scale(1);
+    }
+
+    100% {
+      opacity: 0;
+      transform: scale(1.28);
+    }
+  }
+
+  @keyframes dzzy-onboarding-caret-blink {
+    0%,
+    55% {
+      opacity: 1;
+    }
+
+    56%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes dzzy-onboarding-fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes dzzy-onboarding-line-slide-forward {
+    from {
+      opacity: 0;
+      transform: translateX(48px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes dzzy-onboarding-line-slide-backward {
+    from {
+      opacity: 0;
+      transform: translateX(-48px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes dzzy-onboarding-mask-reveal-up {
+    from {
+      filter: blur(8px);
+      opacity: 0;
+      transform: translate3d(0, 30px, 0) scale(0.985);
+    }
+
+    56% {
+      filter: blur(2px);
+      opacity: 0.86;
+    }
+
+    to {
+      filter: blur(0);
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dzzy-onboarding-runtime-check,
+    .dzzy-onboarding-runtime-checkmark {
+      transition: none;
+    }
+
+    .dzzy-onboarding-runtime-pill {
+      animation: none;
+      will-change: auto;
+    }
+
+    .dzzy-onboarding-runtime-setup[data-setup-flash="true"] {
+      animation: none;
+      outline: 2px solid var(--dzzy-welcome-chartreuse);
+      outline-offset: 2px;
+      will-change: auto;
+    }
+
+    .dzzy-onboarding-runtime-setup[data-setup-flash="true"]::after {
+      animation: none;
+      content: none;
+      will-change: auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    @keyframes dzzy-onboarding-line-slide-forward {
+      from {
+        opacity: 0;
+        transform: translateX(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes dzzy-onboarding-line-slide-backward {
+      from {
+        opacity: 0;
+        transform: translateX(-24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dzzy-onboarding-transition-content {
+      animation: none;
+      filter: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .dzzy-onboarding-name-placeholder-caret {
+      animation: none;
+    }
+  }
+}

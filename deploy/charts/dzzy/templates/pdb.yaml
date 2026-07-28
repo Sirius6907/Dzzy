@@ -1,0 +1,18 @@
+{{- include "dzzy.validate" . -}}
+{{- if and .Values.podDisruptionBudget.enabled (gt (include "dzzy.minimumReplicas" . | int) 1) -}}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "dzzy.fullname" . }}
+  labels:
+    {{- include "dzzy.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "dzzy.relaySelectorLabels" . | nindent 6 }}
+  {{- if .Values.podDisruptionBudget.minAvailable }}
+  minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
+  {{- else if .Values.podDisruptionBudget.maxUnavailable }}
+  maxUnavailable: {{ .Values.podDisruptionBudget.maxUnavailable }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,20 @@
+# HA shape: replicas=3 + Redis + RWO git (object-store-backed; no RWM). Render-only check.
+relayUrl: wss://dzzy.example.com
+ownerPubkey: "abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789"
+replicaCount: 3
+secrets:
+  existingSecret: dzzy-secrets
+externalPostgresql:
+  url: "postgres://dzzy:pw@postgres.example.com:5432/dzzy"
+externalRedis:
+  url: "redis://:pw@redis.example.com:6379"
+s3:
+  bucket: "dzzy-media"
+persistence:
+  git:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 50Gi
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 2
