@@ -1,5 +1,5 @@
-use dzzy_core::CommunityId;
 use chrono::{DateTime, Utc};
+use dzzy_core::CommunityId;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 

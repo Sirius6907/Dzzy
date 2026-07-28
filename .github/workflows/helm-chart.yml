@@ -243,9 +243,9 @@ jobs:
         run: |
           # CHART_REPO is oci://ghcr.io/Sirius6907/dzzy/charts; helm push appends the
           # chart name, so the install ref is .../charts/dzzy.
-          INSTALL_REF="${CHART_REPO}/buzz"
+          INSTALL_REF="${CHART_REPO}/dzzy"
           {
-            echo "### Published chart \`buzz\` \`${VERSION}\`"
+            echo "### Published chart \`dzzy\` \`${VERSION}\`"
             echo
             echo "**OCI ref:** \`${INSTALL_REF}:${VERSION}\`"
             echo

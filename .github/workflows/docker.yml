@@ -364,8 +364,8 @@ jobs:
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,name=ghcr.io/Sirius6907/dzzy-push-gateway,push-by-digest=true,name-canonical=true,push=${{ github.event_name != 'pull_request' }}
-          cache-from: type=registry,ref=ghcr.io/Sirius6907/dzzy-push-gateway-buildcache:${{ matrix.arch }}
-          cache-to: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && format('type=registry,ref=ghcr.io/Sirius6907/dzzy-push-gateway-buildcache:{0},mode=max,compression=zstd', matrix.arch) || '' }}
+          cache-from: type=registry,ref=ghcr.io/sirius6907/dzzy-push-gateway-buildcache:${{ matrix.arch }}
+          cache-to: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && format('type=registry,ref=ghcr.io/sirius6907/dzzy-push-gateway-buildcache:{0},mode=max,compression=zstd', matrix.arch) || '' }}
       - name: Export digest
         if: github.event_name != 'pull_request'
         env:

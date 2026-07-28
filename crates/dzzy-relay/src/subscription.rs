@@ -573,8 +573,8 @@ fn test_community() -> CommunityId {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use dzzy_core::StoredEvent;
     use chrono::Utc;
+    use dzzy_core::StoredEvent;
     use nostr::{EventBuilder, Keys, Kind, Tag};
 
     fn make_stored_event(kind: Kind, channel_id: Option<Uuid>) -> StoredEvent {

@@ -15,6 +15,7 @@
 use std::io::{self, BufRead, Write};
 use std::time::Duration;
 
+use clap::{Parser, Subcommand};
 use dzzy_core::kind::KIND_PAIRING;
 use dzzy_core::pairing::session::PairingSession;
 use dzzy_core::pairing::{
@@ -23,7 +24,6 @@ use dzzy_core::pairing::{
     types::PayloadType,
     PairingError,
 };
-use clap::{Parser, Subcommand};
 use futures_util::{SinkExt, StreamExt};
 use nostr::{Event, EventBuilder, Keys, RelayUrl, SecretKey, ToBech32};
 use tokio::time::timeout;

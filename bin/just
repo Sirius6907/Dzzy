@@ -1,2 +1,1 @@
-#!/usr/bin/env bash
-exec "$(dirname "$0")/../.cargo/bin/just" "$@"
+.just-1.46.0.pkg

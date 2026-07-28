@@ -1,7 +1,7 @@
 //! Event publishing — PUBLISH to Redis via pool connection.
 
-use dzzy_core::TenantContext;
 use deadpool_redis::Pool;
+use dzzy_core::TenantContext;
 use nostr::JsonUtil;
 use uuid::Uuid;
 

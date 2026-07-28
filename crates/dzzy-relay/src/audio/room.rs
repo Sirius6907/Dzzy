@@ -8,9 +8,9 @@
 //! Frames are opaque Opus bytes — the relay never decodes audio.
 //! `try_send` is used throughout: real-time audio tolerates drops, never queues.
 
-use dzzy_core::CommunityId;
 use bytes::Bytes;
 use dashmap::DashMap;
+use dzzy_core::CommunityId;
 use std::sync::Arc;
 use tokio::sync::{broadcast, mpsc};
 use uuid::Uuid;

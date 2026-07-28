@@ -15,6 +15,7 @@ use tokio::task::JoinHandle;
 use tokio_util::sync::CancellationToken;
 use uuid::Uuid;
 
+use deadpool_redis;
 use dzzy_audit::AuditService;
 use dzzy_auth::{AuthService, Nip98ReplayGuard};
 use dzzy_core::tenant::TenantContext;
@@ -27,7 +28,6 @@ use dzzy_pubsub::rate_limiter::RedisRateLimiter;
 use dzzy_pubsub::{PubSubManager, RedisNip98ReplayGuard};
 use dzzy_search::SearchService;
 use dzzy_workflow::WorkflowEngine;
-use deadpool_redis;
 
 use crate::audio::AudioRoomManager;
 use crate::config::Config;

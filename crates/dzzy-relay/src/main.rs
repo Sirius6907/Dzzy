@@ -1815,7 +1815,7 @@ mod tests {
     use uuid::Uuid;
 
     use super::{
-        dzzy_auto_migrate_enabled, dropped_in_memory_keys, idle_timeout_secs,
+        dropped_in_memory_keys, dzzy_auto_migrate_enabled, idle_timeout_secs,
         refresh_legacy_active_gauge_recency, run_periodic_until_cancelled, EmissionScope,
         InMemoryMetricKey,
     };

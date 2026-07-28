@@ -20,6 +20,11 @@ use std::time::Duration;
 
 use acp::{AcpClient, EnvVar, McpServer};
 use anyhow::Result;
+use clap::Parser;
+use config::{
+    AuthAgentArgs, AuthMethodsArgs, AuthenticateArgs, Config, DedupMode, ModelsArgs,
+    MultipleEventHandling, RespondTo, SubscribeMode,
+};
 use dzzy_core::kind::{
     KIND_MEMBER_ADDED_NOTIFICATION, KIND_MEMBER_REMOVED_NOTIFICATION, KIND_STREAM_MESSAGE,
     KIND_STREAM_REMINDER, KIND_WORKFLOW_APPROVAL_REQUESTED,
@@ -27,11 +32,6 @@ use dzzy_core::kind::{
 use dzzy_core::observer::{
     decrypt_observer_payload, encrypt_observer_payload, OBSERVER_FRAME_TELEMETRY,
     OBSERVER_MAX_PLAINTEXT_LEN,
-};
-use clap::Parser;
-use config::{
-    AuthAgentArgs, AuthMethodsArgs, AuthenticateArgs, Config, DedupMode, ModelsArgs,
-    MultipleEventHandling, RespondTo, SubscribeMode,
 };
 use filter::SubscriptionRule;
 use futures_util::FutureExt;

@@ -5,8 +5,8 @@
 //! relay access, or repository permissions.
 //! All pubkey and event ID values are lowercase hex strings.
 
-use dzzy_core::CommunityId;
 use chrono::{DateTime, Utc};
+use dzzy_core::CommunityId;
 use sqlx::{PgPool, Row as _};
 
 use crate::error::Result;

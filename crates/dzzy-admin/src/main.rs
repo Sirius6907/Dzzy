@@ -23,11 +23,11 @@
 use std::sync::Arc;
 
 use anyhow::Result;
+use clap::{Parser, Subcommand};
 use dzzy_core::kind::KIND_NIP43_MEMBERSHIP_LIST;
 use dzzy_core::tenant::{relay_url_authority, TenantContext};
 use dzzy_db::{Db, DbConfig};
 use dzzy_pubsub::{EventTopic, PubSubManager};
-use clap::{Parser, Subcommand};
 use nostr::{EventBuilder, Keys, Kind, Tag};
 use tracing::warn;
 
