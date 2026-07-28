@@ -509,8 +509,8 @@ def leaderboard_argv(
         # DZZY_BENCHMARK_DOCKER_HOST if your engine exposes the host
         # differently.
         "--relay-gateway",
-        f"{os.environ.get('DZZY_BENCHMARK_DOCKER_HOST', 'host.docker.internal')}"
-        f":{RELAY_HTTP_PORT}",
+        (f"{os.environ.get('DZZY_BENCHMARK_DOCKER_HOST', 'host.docker.internal')}"
+        f":{RELAY_HTTP_PORT}"),
         "--n-concurrent", str(args.n_concurrent),
         "--jobs-dir", str(args.jobs_dir),
     ]

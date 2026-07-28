@@ -44,7 +44,7 @@ class TestbedConfig:
     archive_on_teardown: bool = True
 
 
-def provisioner_from_dict(config: dict[str, object]) -> "DzzyTrialProvisioner":
+def provisioner_from_dict(config: dict[str, object]) -> DzzyTrialProvisioner:
     """Harbor CLI factory for a JSON-decoded testbed configuration."""
     return DzzyTrialProvisioner(TestbedConfig(**config))
 
@@ -100,7 +100,7 @@ class DzzyTrialProvisioner:
         cli = self._cli_for(handle.credentials[0])
         try:
             cli.archive_channel(handle.channel_id)
-        except Exception as error:  # noqa: BLE001 — idempotent re-teardown
+        except Exception as error:
             if "archived" not in str(error).lower():
                 raise
         with psycopg.connect(self._config.postgres_dsn) as conn:

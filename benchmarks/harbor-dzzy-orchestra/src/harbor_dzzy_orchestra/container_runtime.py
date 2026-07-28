@@ -24,7 +24,6 @@ from .manifest import AgentClass, ExperimentManifest
 from .provisioning import AgentCredential, TrialHandle
 from .runtime import RuntimeResult
 
-
 DEFAULT_MAX_AGENT_ROUNDS = 32
 # Container-side layout for the uploaded Dzzy stack.
 REMOTE_ROOT = "/opt/dzzy"
@@ -468,7 +467,7 @@ class DzzyContainerRuntime:
             await environment.exec(sweep)
             await asyncio.sleep(2)
             await environment.exec(sweep.replace("-TERM", "-KILL"))
-        except Exception:  # noqa: BLE001 — environment may already be gone
+        except Exception:  # noqa: S110, BLE001 — environment may already be gone
             pass
 
     async def _collect_logs(
@@ -476,7 +475,7 @@ class DzzyContainerRuntime:
     ) -> None:
         try:
             await environment.download_dir(REMOTE_LOGS, trial_dir)
-        except Exception:  # noqa: BLE001 — best effort; env may be torn down
+        except Exception:  # noqa: S110, BLE001 — best effort; env may be torn down
             pass
 
     # -- Dzzy CLI as the trial user / provisioning identities -------------------
@@ -614,9 +613,9 @@ class DzzyContainerRuntime:
             "",
             f"You are `{credential.agent_id}` (pubkey `{credential.nostr_pubkey}`).",
             f"The team coordinates in Dzzy channel `{trial.channel_id}`.",
-            f"Tasks come from the user `{trial.user.agent_id}` "
+            (f"Tasks come from the user `{trial.user.agent_id}` "
             f"(pubkey `{trial.user.nostr_pubkey}`); address your final report "
-            "to them.",
+            "to them."),
             "",
             "| Name | Role | Pubkey |",
             "|------|------|--------|",

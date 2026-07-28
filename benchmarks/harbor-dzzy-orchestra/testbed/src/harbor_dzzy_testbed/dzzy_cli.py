@@ -36,6 +36,7 @@ class DzzyCli:
             completed = subprocess.run(
                 command,
                 capture_output=True,
+                check=False,
                 text=True,
                 timeout=self._timeout,
                 env={

@@ -250,7 +250,7 @@ def main(argv: list[str] | None = None) -> int:
             f"{PACKAGE_ROOT / 'testbed'} {Path(__file__).resolve()} ..."
         )
 
-    result = subprocess.run(command)
+    result = subprocess.run(command, check=False)
     job_dir = args.jobs_dir / args.job_name
     if result.returncode != 0:
         print(f"harbor run failed (exit {result.returncode}); job dir: {job_dir}")
