@@ -33,6 +33,8 @@ jobs:
           persist-credentials: false
 
       - uses: cashapp/activate-hermit@cea9af7913204a965fd488637a8d1811bba2e616 # v1
+        with:
+          cache: true
 
       # Rust cache covering both the workspace sidecar build and the Tauri
       # crate build. shared-key scoped to macos-canary-release so canary runs
